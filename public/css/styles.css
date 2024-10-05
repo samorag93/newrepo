@@ -49,6 +49,20 @@ nav ul {
   color: white;
   font-size: 25px;
   padding: 20px;
+  
+}
+
+
+
+li a{
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
+
+li a:hover{
+  background-color: white;
+  color: black;
 }
 
 .hero {
@@ -228,4 +242,275 @@ nav ul {
     display: block; /* Se mostrarán en una sola columna en móviles */
     margin: 20px 0;
   }
+}
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px; /* Ajusta el ancho de las tarjetas */
+  transition: transform 0.2s;
+  border: 2px solid ;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Efecto hover */
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.card-price {
+  font-size: 16px;
+  color: #2d2d2d;
+  font-weight: bold;
+}
+
+.notice {
+  text-align: center;
+  font-size: 18px;
+  color: red;
+}
+
+
+#vehicle-detail {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  background-color: #f0f0f0;
+}
+
+.vehicle-card {
+  display: flex;            
+  flex-direction: row;      
+  background-color: white; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;      
+  padding: 20px;
+}
+
+.vehicle-image {
+  flex: 1;
+  /* max-width: 400px; */
+  display: flex; /* Usamos Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.vehicle-image img {
+  /* width: 100%; */
+  height: auto;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+}
+
+.vehicle-info {
+  flex: 2;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vehicle-info h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.vehicle-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.vehicle-price {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.vehicle-miles, .vehicle-color {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.vehicle-miles, .vehicle-color {
+  display: flex;
+  align-items: center;
+}
+
+.vehicle-color {
+  font-weight: 600;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.vehicle-info .details-row {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.vehicle-info .details-row span {
+  display: inline-block;
+  margin-right: 10px;
+  color: #333;
+}
+
+.vehicle-info .details-row .label {
+  font-weight: 600;
+  color: #333;
+}
+
+
+
+/* Estilos generales para la vista móvil */
+@media (max-width: 768px) {
+  /* Ajusta el contenedor para móviles */
+  .vehicle-details-container {
+    display: block;           /* Cambia de flexbox a block para diseño en columna */
+    height: auto;             /* Permite que el contenido fluya */
+    padding: 10px;            /* Reduce el padding en móviles */
+  }
+
+  /* Estilos para la tarjeta en móviles */
+  .vehicle-card {
+    flex-direction: column;   /* Cambia la dirección del layout a columna */
+    padding: 15px;            /* Reduce el padding para una mejor visualización en pantallas pequeñas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Reduce un poco la sombra en móviles */
+    border: 1px solid rgba(0, 0, 0, 0.1);     /* Ajusta el borde a 1px en móviles */
+  }
+
+  /* Ajusta la imagen en móviles */
+  .vehicle-image {
+    text-align: center;       /* Centra la imagen horizontalmente */
+    margin-bottom: 10px;      /* Añade espacio debajo de la imagen */
+  }
+
+  .vehicle-image img {
+    width: 100%;              /* Asegura que la imagen ocupe el ancho completo del contenedor */
+    height: auto;             /* Mantiene las proporciones de la imagen */
+  }
+
+  /* Ajusta los detalles del vehículo */
+  .vehicle-details {
+    padding-left: 0;          /* Elimina el espacio izquierdo en pantallas pequeñas */
+    padding-top: 10px;        /* Añade un poco de espacio superior para separar del contenido anterior */
+  }
+
+  /* Ajusta el tamaño de texto en móviles */
+  .vehicle-details h2 {
+    font-size: 1.5rem;        /* Ajusta el tamaño del encabezado */
+  }
+
+  .vehicle-details span {
+    font-size: 1.2rem;        /* Ajusta el tamaño del precio o cualquier texto importante */
+  }
+}
+
+/* Centra el contenido en la página */
+/* body, html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+} */
+
+/* Estilos para el contenedor principal del error */
+/* .error-container {
+  position: relative;
+  overflow: hidden; 
+  background-color: rgba(255, 255, 255, 0.8);
+  
+  border-radius: 8px;
+  padding: 30px;
+  
+  text-align: center;
+  background-image: url("/images/site/505.png") ;
+  height: 700px;
+} */
+
+.error-container {
+  position: relative; /* Necesario para el posicionamiento absoluto de la imagen de fondo */
+  padding: 30px; /* Espaciado interno */
+  border-radius: 8px; /* Esquinas redondeadas */
+  text-align: center; /* Centra el texto */
+  overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+.error-background {
+  position: absolute; /* Coloca la imagen detrás de otros elementos */
+  top: 0; /* Alinea la imagen al principio del contenedor */
+  left: 0; /* Alinea la imagen a la izquierda */
+  right: 0; /* Alinea la imagen a la derecha */
+  bottom: 0; /* Alinea la imagen al final del contenedor */
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
+  opacity: 0.6; /* Cambia la opacidad de la imagen */
+  z-index: 0; /* Asegura que la imagen esté detrás del contenido */
+}
+
+.error-container > h1,
+.error-container > p,
+.error-container > a {
+  position: relative; /* Coloca estos elementos sobre la imagen de fondo */
+  z-index: 1; /* Asegura que estos elementos se muestren sobre la imagen de fondo */
+  color: #333; /* Color del texto (puedes cambiarlo según tu diseño) */
+}
+
+
+/* Título del error */
+.error-container h1 {
+  font-size: 100px;
+  color: #d9534f;
+  margin-bottom: 10px;
+}
+
+/* Mensaje de error */
+.error-container p {
+  font-size: 50px;
+  color: white;
+  margin-bottom: 50px;
+}
+
+/* Botón para regresar a la página de inicio */
+.error-container a {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #242332;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }

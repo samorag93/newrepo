@@ -1,0 +1,25 @@
+<!-- views/inventory/vehicleDetail.ejs
+
+<h1><%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+<img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+<p><strong>Año:</strong> <%= vehicle.inv_year %></p>
+<p><strong>Descripción:</strong> <%= vehicle.inv_description %></p>
+<p><strong>Precio:</strong> $<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %></p>
+<p><strong>Kilometraje:</strong> <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %> millas</p>
+<p><strong>Color:</strong> <%= vehicle.inv_color %></p>
+
+
+
+ -->
+ <div class="vehicle-card">
+    <div class="vehicle-image">
+      <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+    </div>
+    <div class="vehicle-info">
+      <h1><%= vehicle.inv_make %> <%= vehicle.inv_model %> - <%= vehicle.inv_year %></h1>
+      <p class="vehicle-description"><%= vehicle.inv_description %></p>
+      <p class="vehicle-price">Price: $<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %></p>
+      <p class="vehicle-miles">Miles: <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %> miles</p>
+      <p class="vehicle-color">Color: <%= vehicle.inv_color %></p>
+    </div>
+  </div>
