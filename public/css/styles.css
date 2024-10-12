@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap'); */
 
 /******* Change Box Model ***************/
 /* *,
@@ -14,7 +14,7 @@ body {
     /* background-repeat: no-repeat; */
     margin-left: 150px;
     margin-right: 150px;
-    font-family: "Playwrite DE Grund", cursive;
+    font-family: "Playwrite DE Grund", sans-serif, cursive;
 }
 
 #wrapper {
@@ -54,13 +54,13 @@ nav ul {
 
 
 
-li a{
+.links{
   text-decoration: none;
   color: white;
   padding: 10px;
 }
 
-li a:hover{
+.links:hover{
   background-color: white;
   color: black;
 }
@@ -85,7 +85,6 @@ li a:hover{
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.5);
   color: #01b0d3;
-  align-items: right;
   padding: 20px;
 }
 .hero-card h2, .hero-card p {
@@ -287,7 +286,6 @@ li a:hover{
 }
 
 .notice {
-  text-align: center;
   font-size: 18px;
   color: red;
 }
@@ -514,3 +512,121 @@ hr {
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
+
+/*LOGIN FORM STYLE */
+
+.loginForm {
+  background-color: #32475C; /* Fondo blanco para el formulario */
+  color: white;
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: 20px auto; /* Centrar el formulario */
+}
+form p a {
+  color: white;
+}
+
+/* Input and button styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%; /* Tomar el 100% del ancho del contenedor */
+  padding: 10px; /* Espaciado interno */
+  margin-bottom: 15px; /* Espacio entre campos */
+  border: 1px solid #ddd; /* Bordes grises */
+  border-radius: 4px; /* Bordes redondeados */
+  box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #242332; /* Cambia el color del borde al enfocarse */
+  outline: none; /* Sin contorno al enfocar */
+}
+.button-container {
+  text-align: center;
+}
+
+button {
+  /* background-color: #242332;  */
+  /* color: white; */
+  border: none; /* Sin borde */
+  padding: 10px 15px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar cursor al pasar el mouse */
+  font-family: inherit;
+}
+
+button:hover {
+  background-color: #1e1e2f; /* Color más oscuro al pasar el mouse */
+  color: white;
+}
+
+/*REGISTER FORM*/
+
+.registrationForm {
+  background-color: #32475C; /* Fondo blanco para el formulario */
+  color: white;
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: 20px auto; /* Centrar el formulario */
+}
+
+.registrationForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+
+.main-add {
+  color: white;
+  /* text-align: center; */
+  background-color: #32475C;
+  display: block; /* Se asegura de que el div ocupe solo lo necesario */
+  width: fit-content; /* Ajusta el ancho al contenido del div */
+  margin: 0 auto; /* Centra el div en su contenedor */
+  padding: 20px; /* Espacio interno */
+  border: 1px solid #ccc; /* Borde opcional */
+  border-radius: 5px; /* Bordes redondeados opcionales */
+
+}
+
+.addClassForm {
+  background-color: #32475C; /* Fondo blanco para el formulario */
+  color: white;
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: 20px auto; /* Centrar el formulario */
+  border: 2px solid black;
+}
+
+.classificationName {
+  font-family: inherit;
+}
+
+.addCar-form {
+  color: white;
+  /* text-align: center; */
+  background-color: #32475C;
+  display: block; /* Se asegura de que el div ocupe solo lo necesario */
+  width: fit-content; /* Ajusta el ancho al contenido del div */
+  margin: 0 auto; /* Centra el div en su contenedor */
+  padding: 20px; /* Espacio interno */
+  border: 1px solid #ccc; /* Borde opcional */
+  border-radius: 5px;
+}
+

@@ -7,24 +7,20 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  list += '<li><a class="links" href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
+    list += '<a class="links" href="/inv/type/' + row.classification_id + '" title="See our inventory of ' + row.classification_name + ' vehicles">' + row.classification_name + "</a>"
+    // list += '<a href="'
     list += "</li>"
   })
   list += "</ul>"
   return list
 }
 
-
+/*let data = await invModel.getClassifications()
+  data.rows.forEach((row) => {
+    }*/
 
 
 /* **************************************
@@ -93,6 +89,19 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* ****************************************
+*  Deliver login view
+* *************************************** */
+async function buildLogin(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/login", {
+    title: "Login",
+    nav,
+  })
+}
+
+module.exports = { buildLogin }
+
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -101,4 +110,24 @@ Util.buildClassificationGrid = async function(data){
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-  module.exports = Util
+/* ****************************************
+ * MENU DESPLEGABLE
+ * *************************************  */
+
+Util.getClassificationDropdown = async function (selectedId = null) {
+  const data = await invModel.getClassifications();
+  let dropdown = `<select name="classification_id" id="classification" required>`;
+  dropdown += `<option value="">Choose a Classification</option>`;
+  data.rows.forEach((row) => {
+    dropdown += `<option value="${row.classification_id}"`;
+    if (selectedId && row.classification_id == selectedId) {
+      dropdown += " selected";
+    }
+    dropdown += `>${row.classification_name}</option>`;
+  });
+  dropdown += `</select>`;
+  return dropdown;
+};
+
+
+module.exports = Util

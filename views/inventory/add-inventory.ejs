@@ -1,0 +1,43 @@
+    <h1>Add New Vehicle</h1>
+
+     <!-- Mensajes de error o éxito -->
+     <% if (messages.error) { %>
+        <div class="error"><%= messages.error %></div>
+    <% } %>
+    <% if (messages.success) { %>
+        <div class="success"><%= messages.success %></div>
+    <% } %>
+    <!-- Form to add vehicle -->
+    <form class="addCar-form" action="/inv/add-inventory" method="POST" onsubmit="return validateForm()">
+        <label for="classification">Classification:</label>
+        <%- classificationDropdown  %>
+
+        <label for="make">Make:</label>
+        <input type="text" id="make" name="inv_make" required>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="inv_model" required>
+
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="inv_year" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="inv_description" required></textarea>
+
+        <label for="imagePath">Image Path:</label>
+        <input type="text" id="imagePath" name="inv_image" value="/images/vehicles/no-image.png" required>
+
+        <label for="thumbnailPath">Thumbnail Path:</label>
+        <input type="text" id="thumbnailPath" name="inv_thumbnail" value="/images/vehicles/no-image-tn.png" required>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="inv_price" required>
+
+        <label for="miles">Miles:</label>
+        <input type="text" id="miles" name="inv_miles" required>
+
+        <label for="color">Color</label>
+        <input type="text" id="color" name="inv_color" required>
+
+        <button type="submit">Add Vehicle</button>
+    </form>
