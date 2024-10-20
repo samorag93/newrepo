@@ -1,12 +1,13 @@
     <h1>Add New Vehicle</h1>
 
      <!-- Mensajes de error o éxito -->
-     <% if (messages.error) { %>
-        <div class="error"><%= messages.error %></div>
-    <% } %>
-    <% if (messages.success) { %>
-        <div class="success"><%= messages.success %></div>
-    <% } %>
+     <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
     <!-- Form to add vehicle -->
     <form class="addCar-form" action="/inv/add-inventory" method="POST" onsubmit="return validateForm()">
         <label for="classification">Classification:</label>

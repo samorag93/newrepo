@@ -10,7 +10,17 @@ const { route } = require("./static");
 router.get("/login", utilities.handleErrors(accountController.buildLoginView));
 
 // Route to handle the login action (POST method)
-router.post("/login", utilities.handleErrors(accountController.processLogin));
+// router.post("/login", regValidate.loginRules(), utilities.handleErrors(accountController.accountLogin));
+router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin));
+
+// router.post("/login", utilities.handleErrors(accountController.accountLogin))
+// // Process the login attempt
+// router.post(
+//     "/login",
+//     (req, res) => {
+//       res.status(200).send('login process')
+//     }
+//   )
 
 // Route to display the registration page
 router.get("/register", utilities.handleErrors(accountController.buildRegisterView));
@@ -20,11 +30,10 @@ router.post("/register", regValidate.registrationRules(), regValidate.checkRegDa
 // router.post('/register', utilities.handleErrors(accountController.regAccount))
 // router.post('/register', utilities.handleErrors(accountController.regAccount));
 
-// Route to display the account dashboard
-router.get("/dashboard", utilities.handleErrors(accountController.buildDashboard));
+// Route to display the account management
+router.get("/accountController", utilities.checkJWTToken, utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagementView));
+router.get("/", utilities.checkJWTToken, utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagementView));
 
-// Route to handle "My Account" link
-// router.get("/my-account", utilities.handleErrors(accountController.buildMyAccount));
 
 // Export the router to be used in the server.js file
 module.exports = router;

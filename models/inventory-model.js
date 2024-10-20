@@ -77,10 +77,12 @@ async function addClassification(classificationName) {
 
 async function addVehicle(vehicleData) {
   const sql = `INSERT INTO inventory 
-               (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
+               (inv_id, classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color)
                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
 
   const values = [
+      vehicleData.inv_id,
+      vehicleData.classification_id,
       vehicleData.inv_make,
       vehicleData.inv_model,
       vehicleData.inv_year,
@@ -89,8 +91,7 @@ async function addVehicle(vehicleData) {
       vehicleData.inv_thumbnail,
       vehicleData.inv_price,
       vehicleData.inv_miles,
-      vehicleData.inv_color,
-      vehicleData.classification_id
+      vehicleData.inv_color      
   ];
 
   try {
@@ -102,4 +103,41 @@ async function addVehicle(vehicleData) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addVehicle};
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id
+    ])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addVehicle, updateInventory};

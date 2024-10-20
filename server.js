@@ -18,6 +18,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -41,6 +42,18 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next();
 })
+
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Imprime el error en la consola
+  res.status(500).send('Algo salió mal, intenta nuevamente.'); // Respuesta genérica
+});
+
+// week 4 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// week 5
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 
 /* ***********************

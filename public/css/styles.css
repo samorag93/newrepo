@@ -630,3 +630,14 @@ button:hover {
   border-radius: 5px;
 }
 
+.editCar-form {
+  color: white;
+  background-color: #32475C;
+  display: block; /* Se asegura de que el div ocupe solo lo necesario */
+  width: fit-content; /* Ajusta el ancho al contenido del div */
+  margin: 0 auto; /* Centra el div en su contenedor */
+  padding: 20px; /* Espacio interno */
+  border: 1px solid #ccc; /* Borde opcional */
+  border-radius: 5px;
+}
+
