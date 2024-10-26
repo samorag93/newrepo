@@ -1,35 +1,24 @@
-  <header>
-    <h1><%= title %></h1>
-  </header>
-  <!-- <%- messages()  %> -->
-  <% if (errors) { %>
-    <ul class="notice">
-   <% errors.array().forEach(error => { %>
-     <li><%= error.msg %></li>
-  <%  }) %>
-   </ul>
-  <% } %>
-  <!-- Registration Form -->
-  <form class="registrationForm" action="/account/register" method="POST">
 
+
+<form class="updateForm" action="/account/update" method="POST">
     
 
     <label for="firstname">First Name:</label>
-    <input type="text" id="firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
+    <input type="text" id="firstname" name="account_firstname" required value="<%= account_firstname %>">
     
     <label for="lastname">Last Name:</label>
-    <input type="text" id="lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
+    <input type="text" id="lastname" name="account_lastname" required value="<%= account_lastname %>">
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="account_email" required title="example@email.com" placeholder="Enter a valid email address" autocomplete="email" value="<%= locals.account_email %>">
+    <input type="email" id="email" name="account_email" required title="example@email.com" placeholder="Enter a valid email address" autocomplete="email" value="<%= account_email %>">
     
-    <label for="accountPassword">Password:</label>
+    <label for="accountPassword">Update Password:</label>
     <div class="password-wrapper">
         <input type="password" name="account_password" id="accountPassword" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" title="Password must be at least 12 characters, and include at least one uppercase letter, one number, and one special character.">
     </div>
     <span class="password-requirements">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character</span><br><br>
     <button id="showPassword" type="button">Show Password</button>
-    <button type="submit">Register</button>
+    <button type="submit">Update Account</button>
   </form>
   <script>
     // JavaScript para mostrar/ocultar la contraseña
@@ -48,4 +37,3 @@
       showPasswordButton.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
     });
   </script>
-

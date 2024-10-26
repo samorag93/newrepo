@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const jwt = require("jsonwebtoken")
+// const 
 require("dotenv").config()
 
 const Util = {}
@@ -95,15 +96,15 @@ Util.buildClassificationGrid = async function(data){
 /* ****************************************
 *  Deliver login view
 * *************************************** */
-async function buildLogin(req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("account/login", {
-    title: "Login",
-    nav,
-  })
-}
+// async function buildLogin(req, res, next) {
+//   let nav = await utilities.getNav()
+//   res.render("account/login", {
+//     title: "Login",
+//     nav,
+//   })
+// }
 
-module.exports = { buildLogin }
+// module.exports = { buildLogin }
 
 
 /* ****************************************
@@ -149,7 +150,6 @@ Util.checkJWTToken = (req, res, next) => {
       return res.redirect("/account/login")
      }
      res.locals.accountData = accountData
-     res.session.user = accountData
      res.locals.loggedin = 1
      next()
     })
@@ -171,5 +171,54 @@ Util.checkLogin = (req, res, next) => {
   }
 }
 
+/********************
+ * Chek Account Type
+ ********************/
 
+// Util.checkAccountType = async (req, res, next) => {
+//   try {
+//     // Verificar si existe un token JWT
+//     const token = req.cookies.jwt;
+//     if (!token) {
+//       req.flash("notice", "Please log in to access this page.");
+//       return res.redirect("/account/login");
+//     }
+
+//     // Verificar el token
+//     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
+//       if (err) {
+//         req.flash("notice", "Invalid session, please log in again.");
+//         return res.redirect("/account/login");
+//       }
+
+//       // Obtener el account_id desde el token
+//       const accountId = decodedToken.account_id;
+
+//       // Obtener el tipo de cuenta desde la base de datos
+//       const accountType = await invModel.getAccountTypeById(accountId);
+
+//       if (accountType === "Employee" || accountType === "Admin") {
+//         // Si el tipo de cuenta es "Empleado" o "Administrador", permitir el acceso
+//         next();
+//       } else {
+//         // Si el tipo de cuenta no es adecuado, redirigir a la página de login
+//         req.flash("notice", "You do not have permission to access this area.");
+//         return res.redirect("/account/login");
+//       }
+//     });
+//   } catch (error) {
+//     console.error("Error checking account type:", error);
+//     req.flash("notice", "An error occurred, please log in again.");
+//     return res.redirect("/account/login");
+//   }
+// };
+Util.checkAccountType = (req, res, next) => {
+  const accountData = res.locals.accountData
+  if (accountData && (accountData.account_type === 'Admin' || accountData.account_type === 'Employee')) {
+    next()
+  } else {
+    req.flash("notice", "You do not have permission to access this page.")
+    res.redirect("/account/login")
+  }
+}
 module.exports = Util

@@ -641,3 +641,12 @@ button:hover {
   border-radius: 5px;
 }
 
+.updateForm {
+  background-color: #32475C; /* Fondo blanco para el formulario */
+  color: white;
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: 20px auto; /* Centrar el formulario */
+}

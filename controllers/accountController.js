@@ -129,6 +129,45 @@ async function regAccount(req, res) {
  * PROCES LOGIN REQUEST
  * ******************** */
 
+// async function accountLogin(req, res) {
+//   let nav = await utilities.getNav()
+//   const { account_email, account_password } = req.body
+//   const accountData = await accountModel.getAccountByEmail(account_email)
+//   if (!accountData) {
+//     req.flash("notice", "Please check your credentials and try again.")
+//     res.status(400).render("account/login", {
+//       title: "Login",
+//       nav,
+//       errors: null,
+//       // account_email,
+//     })
+//     return
+//   }
+//   try {
+//     if (await bcrypt.compare(account_password, accountData.account_password)) {
+//       delete accountData.account_password
+//       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+//       if(process.env.NODE_ENV === 'development') {
+//         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+//       } else {
+//         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+//       }
+//       return res.redirect("/account/")
+//     }
+//     else {
+//       req.flash("message notice", "Please check your credentials and try again.")
+//       res.status(400).render("account/login", {
+//         title: "Login",
+//         nav,
+//         errors: null,
+//         account_email,
+//       })
+//     }
+//   } catch (error) {
+//     throw new Error('Access Forbidden')
+//   }
+// }
+
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
@@ -152,9 +191,11 @@ async function accountLogin(req, res) {
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
+      // res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       return res.redirect("/account/")
     }
     else {
+      
       req.flash("message notice", "Please check your credentials and try again.")
       res.status(400).render("account/login", {
         title: "Login",
@@ -168,35 +209,98 @@ async function accountLogin(req, res) {
   }
 }
 
-
 /**************************
  * ACCOUNT MANAGEMENT VIEW
  * ***********************/
-async function buildAccountManagementView(req, res) {
-  try {
-    if (!req.session.user) {
-      req.flash("notice", "No estás autenticado. Por favor, inicia sesión.");
-      return res.redirect("/account/login"); // Redirige a la página de inicio de sesión
-    }
-    let nav = await utilities.getNav();
-    const user = req.session.user; // Obtén el usuario de la sesión
-    console.log("Account Management View Called");
-  // Establece un mensaje flash
-    req.flash("notice", `You're logged in ${req.session.user.account_firstname}`);//, ${user.account_firstname}!
+// async function buildAccountManagementView(req, res) {
+//   try {
+//     if (!req.session.user) {
+//       req.flash("notice", "No estás autenticado. Por favor, inicia sesión.");
+//       return res.redirect("/account/login"); // Redirige a la página de inicio de sesión
+//     }
+//     let nav = await utilities.getNav();
+//     const user = req.session.user; // Obtén el usuario de la sesión
+//     console.log("Account Management View Called");
+//   // Establece un mensaje flash
+//     req.flash("notice", `You're logged in ${req.session.user.account_firstname}`);//, ${user.account_firstname}!
 
-  // Renderiza la vista accountController.ejs
-    res.render("account/accountController", {
-        title: "Account Management",
-        nav,
-        user // Pasa el usuario a la vista
-    });
-  } catch (error) {
-    console.error("Error loading the view", error)
-    // res.status(500).send("There was an error with login")
-  }
+//   // Renderiza la vista accountController.ejs
+//     res.render("account/accountController", {
+//         title: "Account Management",
+//         nav,
+//         user // Pasa el usuario a la vista
+//     });
+//   } catch (error) {
+//     console.error("Error loading the view", error)
+//     // res.status(500).send("There was an error with login")
+//   }
   
+// }
+
+// async function buildLogin(req, res, next) {
+//   let nav = await utilities.getNav()
+//   res.render("account/login", {
+//     title: "Login",
+//     nav,
+//   })
+// }
+
+// async function buildAccountManagement(req, res, next) {
+//   try {
+//     if (!req.session.account_id) {
+//       req.flash('error', 'Por favor, inicia sesión primero')
+//       return res.redirect('/account/login')
+//     }
+
+//     res.render('accountManagement', {
+//       title: 'Account Management',
+//       firstname: req.session.account_firstname,
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
+async function buildAccountManagement(req, res, next) {
+  try {
+    // Obtener el menú de navegación
+    let nav = await utilities.getNav()
+
+    const accountData = res.locals.accountData
+    // Renderizar la vista de administración de cuenta
+    res.render("account/accountManagement", {
+      title: "Account Management",
+      nav, // Menú de navegación
+      errors: null, // No hay errores en este caso
+      accountData,
+    })
+  } catch (error) {
+    next(error) // Manejo de errores
+  }
+}
+
+/*********************
+ * update account view
+ ********************/
+
+async function buildUpdateAccountView(req, res, next) {
+  const account_id = parseInt(req.params.account_id)
+  let nav = await utilities.getNav()
+  const itemData = await accountModel.getAccountById(account_id)
+  const itemName = `${itemData.account_firstname}`
+  res.render("account/update", {
+    title: "Edit your account " + itemName,
+    nav,
+    errors: null,
+    account_id: itemData.account_id,
+    account_firstname: itemData.account_firstname,
+    account_lastname: itemData.account_lastname,
+    account_email: itemData.account_email,
+    // account_password: itemData.account_password,
+    account_type: itemData.account_type
+  })
 }
 
 
 
-module.exports = {buildLoginView, buildRegisterView, regAccount, accountLogin, buildAccountManagementView}
+module.exports = {buildLoginView, buildRegisterView, regAccount, accountLogin, buildAccountManagement, buildUpdateAccountView}

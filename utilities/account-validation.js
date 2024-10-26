@@ -62,13 +62,7 @@ validate.loginRules = () => {
             .notEmpty()
             .isEmail()
             .normalizeEmail()
-            .withMessage("A valid email is required.")
-            .custom( async (account_email) => {
-                const emailExists = await accountModel.checkExistingEmail(account_email)
-                if (emailExists) {
-                    throw new Error("Email exists. Please log in or use different email")
-                }
-            }),
+            .withMessage("A valid email is required."),
         body("account_password")
             .trim()
             .notEmpty()
@@ -120,14 +114,6 @@ validate.checkLoginData = async(req, res, next) => {
     next()
 }
 
-// Verifica si el usuario está autenticado
-utilities.checkLogin = (req, res, next) => {
-    if (req.session && req.session.userId) {
-      next(); // El usuario está autenticado, continuar
-    } else {
-      req.flash("notice", "Please log in to access this page.");
-      res.redirect("/account/login");
-    }
-  }
+
 
 module.exports = validate

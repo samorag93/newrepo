@@ -140,4 +140,23 @@ async function updateInventory(
     console.error("model error: " + error)
   }
 }
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addVehicle, updateInventory};
+
+/*********************
+ * GET TYPE ACCOUNT
+ ********************/
+
+async function getAccountTypeById(accountId) {
+  try {
+    const sql = "SELECT account_type FROM account WHERE account_id = $1";
+    const result = await pool.query(sql, [accountId]);
+    if (result.rows.length) {
+      return result.rows[0].account_type; // Retorna el tipo de cuenta
+    }
+    return null; // Si no se encuentra la cuenta, retorna null
+  } catch (error) {
+    console.error("Error fetching account type:", error);
+    throw new Error("Database query failed.");
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addVehicle, updateInventory, getAccountTypeById};
