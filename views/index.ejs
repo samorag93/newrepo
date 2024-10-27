@@ -1,5 +1,20 @@
-<h1>Welcome to CSE Motors!</h1>
-
+<h1>
+    <% if (accountData) { %>
+      Welcome <%= accountData.account_firstname %> to CSE Motors!
+    <% } else { %>
+      Welcome to CSE Motors!
+    <% } %>
+  </h1>
+  
+  <div class="sub-nav">
+      <ul>
+          <li><a class="home-links" href="/account/">MY ACCOUNT</a></li>
+          <!-- Mostrar INVENTORY MANAGEMENT solo si el usuario es Employee o Admin -->
+          <% if (accountData && (accountData.account_type === 'Employee' || accountData.account_type === 'Admin')) { %>
+            <li><a class="home-links" href="/inv/management">INVENTORY MANAGEMENT</a></li>
+          <% } %>
+      </ul>
+  </div>
 <div class="hero">
     <div class="hero-card">
         <h2>DMC Delorean</h2>

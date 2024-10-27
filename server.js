@@ -19,6 +19,7 @@ const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const favoriteRoute = require("./routes/favoriteRoute")
 
 
 
@@ -94,7 +95,8 @@ app.use("/", errorRoute);
 
 //Account routes
 app.use("/account", accountRoute);
-
+// Favorite routes
+app.use("/favorites", favoriteRoute)
 //Error routes
 app.use("/", errorRoute)
 

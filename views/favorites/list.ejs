@@ -1,0 +1,17 @@
+<!-- views/favorites/list.ejs -->
+<h1>Your Favorite Vehicles</h1>
+
+<% if (favorites.length > 0) { %>
+    <ul>
+        <% favorites.forEach(vehicle => { %>
+            <li>
+            <strong>Year:</strong> <%= favorites.inv_year %><br>
+            <strong>Price:</strong> $<%= favorites.inv_price %><br>
+            <strong>Kilometers:</strong> <%= new Intl.NumberFormat('en-US').format(favorites.inv_miles) %> miles<br>
+            <strong>Color:</strong> <%= favorites.inv_color %>
+        </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>You have no favorite vehicles.</p>
+<% } %>

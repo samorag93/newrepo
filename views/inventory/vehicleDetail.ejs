@@ -22,4 +22,14 @@
       <p class="vehicle-miles">Miles: <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %> miles</p>
       <p class="vehicle-color">Color: <%= vehicle.inv_color %></p>
     </div>
+    <form action="<%= isFavorite ? '/favorites/remove' : '/favorites/add' %>" method="POST">
+      <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+      <% if (isFavorite) { %>
+          <button type="submit" class="btn btn-danger">Remove from Favorites</button>
+      <% } else { %>
+          <button type="submit" class="btn btn-primary">Add to Favorites</button>
+      <% } %>
+  </form>
   </div>
+
+  

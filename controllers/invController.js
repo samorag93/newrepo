@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const favoriteModel = require("../models/favorite-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -32,34 +33,72 @@ invCont.buildByClassificationId = async function (req, res, next) {
 /* ***************************
  *  Build vehicle detail view
  * ************************** */
+// invCont.buildVehicleDetail = async function (req, res, next) {
+//   const vehicleId = req.params.vehicleId; 
+
+//   try {
+//     const vehicleData = await invModel.getVehicleById(vehicleId);
+
+//     if (!vehicleData) {
+//       return res.status(404).render("errors/error", {
+//         title: "Vehículo no encontrado",
+//         message: "Lo sentimos, no hemos encontrado el vehículo que buscas."
+//       });
+//     }
+
+//     // Obtén la navegación
+//     const nav = await utilities.getNav(); 
+
+//     // Renderiza la vista con los detalles del vehículo y la navegación
+//     res.render("inventory/vehicleDetail", {
+//       title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
+//       vehicle: vehicleData,
+//       nav // Pasa la variable nav a la vista
+//     });
+//   } catch (error) {
+//     next(error); // Llama al middleware de manejo de errores
+//   }
+// };
+
+// Function to deliver the management view
+
 invCont.buildVehicleDetail = async function (req, res, next) {
   const vehicleId = req.params.vehicleId; 
 
   try {
-    const vehicleData = await invModel.getVehicleById(vehicleId);
+      const vehicleData = await invModel.getVehicleById(vehicleId);
 
-    if (!vehicleData) {
-      return res.status(404).render("errors/error", {
-        title: "Vehículo no encontrado",
-        message: "Lo sentimos, no hemos encontrado el vehículo que buscas."
+      if (!vehicleData) {
+          return res.status(404).render("errors/error", {
+              title: "Vehículo no encontrado",
+              message: "Lo sentimos, no hemos encontrado el vehículo que buscas."
+          });
+      }
+
+       
+
+      // Verificar si el usuario está conectado
+      const account_id = res.locals.accountData ? res.locals.accountData.account_id : null; 
+
+      let isFavorite = false; // Variable para determinar si el vehículo es favorito
+      if (account_id) {
+          // Aquí asumimos que tienes una función en tu modelo para verificar favoritos
+          isFavorite = await favoriteModel.isFavorite(account_id, vehicleId);
+      }
+      // Obtén la navegación
+      const nav = await utilities.getNav();
+      // Renderiza la vista con los detalles del vehículo, la navegación y el estado de favorito
+      res.render("inventory/vehicleDetail", {
+          title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
+          vehicle: vehicleData,
+          nav, // Pasa la variable nav a la vista
+          isFavorite // Pasa el estado de favorito a la vista
       });
-    }
-
-    // Obtén la navegación
-    const nav = await utilities.getNav(); 
-
-    // Renderiza la vista con los detalles del vehículo y la navegación
-    res.render("inventory/vehicleDetail", {
-      title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
-      vehicle: vehicleData,
-      nav // Pasa la variable nav a la vista
-    });
   } catch (error) {
-    next(error); // Llama al middleware de manejo de errores
+      next(error); // Llama al middleware de manejo de errores
   }
 };
 
-// Function to deliver the management view
 invCont.builManagementView = async function(req, res){
   try {
     const nav = await utilities.getNav();

@@ -40,15 +40,6 @@ async function getAccountByEmail(account_email) {
   }
 }
 
-// async function AccountByEmail(account_email) {
-//   try {
-//     const result = await pool.query('SELECT * FROM account WHERE account_email = $1', [account_email])
-//     return result.rows[0] // Devuelve el usuario (o undefined si no existe)
-//   } catch (error) {
-//     console.error('Error buscando la cuenta por email', error)
-//     throw new Error('Database query failed') // Lanza un error si hay problemas
-//   }
-// }
 
 /********************
  * Get account by Id

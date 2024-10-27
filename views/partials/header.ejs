@@ -14,10 +14,10 @@
     <div id="tools">
         <% if (locals.loggedin) { %> <!-- Si el usuario ha iniciado sesión -->
             <span>Welcome, <%= accountData.account_firstname %>!</span>
-            <!-- <a title="Manage your account" href="/account/">Account Management</a> -->
             <a title="Click to log out" href="/account/logout">Logout</a>
+            <a title="View your favorites" href="/favorites/list"><img src="/images/site/favoriteIcon.png" alt="Favorites" style="width: 24px; height: 24px;"></a> <!-- Icono de favoritos -->
         <% } else { %> <!-- Si el usuario no ha iniciado sesión -->
-            <a title="Click to log in" href="/account/login">My Account</a>
+            <a title="Click to log in" href="/account/login">LOG IN</a>
         <% } %>
     </div>
 </header>
